@@ -1,0 +1,21 @@
+[package]
+name = "fenris-cmrr"
+version = "0.1.0"
+edition = "2021"
+# The rusty-SUNDIALS crates are edition 2024, so the toolchain must be at least 1.85.
+rust-version = "1.85"
+publish = false
+description = "Repulsive (shifted-force Yukawa) relaxation of free interior mesh nodes against fixed boundary nodes, integrated with rusty-SUNDIALS CVODE (BDF, analytic Jacobian) after an RK23 un-clumping phase. C ABI for Gmsh-style callers."
+
+[lib]
+name = "cmrr"
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+# Local rusty-SUNDIALS checkout (branch merge-mcp-temp @ af4886f at the time of writing).
+cvode = { path = "../rusty-SUNDIALS/crates/cvode" }
+nvector = { path = "../rusty-SUNDIALS/crates/nvector" }
+rayon = "1.10"
+
+# Standalone: never become part of an enclosing workspace.
+[workspace]
